@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.servlet.http.HttpSession; // Importe a HttpSession
 import br.com.dunnas.desafio.sistemaaluguel.model.Livro;
+import br.com.dunnas.desafio.sistemaaluguel.model.Usuario;
 import br.com.dunnas.desafio.sistemaaluguel.service.CatalogoService;
 import br.com.dunnas.desafio.sistemaaluguel.service.LivroService;
 import java.math.BigDecimal;
@@ -35,11 +37,21 @@ public class CatalogoPageController {
             @RequestParam String titulo,
             @RequestParam String autor,
             @RequestParam BigDecimal valorObra,
-            @RequestParam Integer quantidade,
-            RedirectAttributes redirectAttributes) { // Adicione este parâmetro
+            @RequestParam Integer quantidade, 
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
         
-        // Usar o Locador com ID=1 de forma estatica e temporaria para testes
-        Integer locadorId = 1;
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+        
+     // 2. Verifica se alguém está logado e se é um LOCADOR
+        if (usuarioLogado == null || !"LOCADOR".equals(usuarioLogado.getTipo())) {
+            redirectAttributes.addFlashAttribute("erro", "Acesso negado.");
+            return "redirect:/login"; // Se não for, manda para o login
+        }
+        
+        // 3. Usa o ID do utilizador logado
+        Integer locadorId = usuarioLogado.getId();
         
         try {
             catalogoService.adicionarLivroAoCatalogo(locadorId, isbn, titulo, autor, valorObra, quantidade);

@@ -37,18 +37,13 @@ public class LivroPageController {
             redirectAttributes.addFlashAttribute("erro", "Erro ao alugar livro: " + e.getMessage());
         }
         
-        return "redirect:/livros"; // Redireciona de volta para a lista de livros
+        return "redirect:/livros"; 
     }
-    
-    @GetMapping("/login")
-    public String exibirPaginaDeLogin() {
-        return "login"; // Retorna o nome do arquivo "login.jsp"
-    }
-    
+
     @GetMapping("/livros")
     public String listarLivros(Model model) {
         List<Livro> livros = livroService.listarTodos();
-        model.addAttribute("livros", livros); // Envia a lista de livros para a página
-        return "lista-livros"; // Retorna o nome do arquivo JSP (sem a extensão .jsp)
+        model.addAttribute("livros", livros);
+        return "lista-livros"; 
     }
 }

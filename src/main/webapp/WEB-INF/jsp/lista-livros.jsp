@@ -3,50 +3,58 @@
 <html>
 <head>
     <title>Catálogo de Livros</title>
-    <style>
-        /* Estilos simples para a tabela */
-        body { font-family: sans-serif; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
-        th { background-color: #f2f2f2; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
-    <h1>Livros Disponíveis para Aluguel</h1>
+<div class="page-container">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Valor da Obra</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-		    <c:if test="${not empty mensagem}">
-		        <p style="color: green;">${mensagem}</p>
-		    </c:if>
-		    <c:if test="${not empty erro}">
-		        <p style="color: red;">${erro}</p>
-		    </c:if>
-		
-		    <c:forEach items="${livros}" var="livro">
-		        <tr>
-		            <td><c:out value="${livro.titulo}" /></td>
-		            <td><c:out value="${livro.autor}" /></td>
-		            <td>R$ <c:out value="${livro.valorObra}" /></td>
-		            <td>
-		                <form action="/alugar" method="post">
-		                    <input type="hidden" name="livroId" value="${livro.id}" />
-		                    <button type="submit">Alugar</button>
-		                </form>
-		            </td>
-		        </tr>
-		    </c:forEach>
-		</tbody>
-    </table>
+    <jsp:include page="layout/sidebar.jsp" />
+
+    <div class="main-wrapper">
+
+        <jsp:include page="layout/header.jsp" />
+
+        <main class="content">
+            <h1>Livros Disponíveis no Catálogo</h1>
+            <p>Esta é a lista completa de todas as obras disponíveis no sistema. Como cliente, você pode alugar qualquer um destes livros de um locador que o tenha em estoque.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Valor da Obra</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${livros}" var="livro">
+                            <tr>
+                                <td><c:out value="${livro.titulo}" /></td>
+                                <td><c:out value="${livro.autor}" /></td>
+                                <td>R$ <c:out value="${livro.valorObra}" /></td>
+                                <td>
+                                    <%-- Formulário para alugar o livro --%>
+                                    <form action="/alugar" method="post">
+                                        <input type="hidden" name="livroId" value="${livro.id}" />
+                                        <button type="submit">Alugar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+
+        <jsp:include page="layout/footer.jsp" />
+    </div>
+</div>
+
+<script src="/js/main.js"></script>
 
 </body>
 </html>
