@@ -1,5 +1,6 @@
 package br.com.dunnas.desafio.sistemaaluguel.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.dunnas.desafio.sistemaaluguel.model.Usuario;
 import br.com.dunnas.desafio.sistemaaluguel.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
@@ -64,6 +66,14 @@ public class UsuarioService {
      */
     public Optional<Usuario> buscarPorId(Integer id) {
         return usuarioRepository.findById(id);
+    }
+    
+    @Transactional
+    public void adicionarSaldo(Integer usuarioId, BigDecimal valor) {
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O valor a ser adicionado deve ser positivo.");
+        }
+        usuarioRepository.adicionarSaldo(usuarioId, valor);
     }
 
     /**

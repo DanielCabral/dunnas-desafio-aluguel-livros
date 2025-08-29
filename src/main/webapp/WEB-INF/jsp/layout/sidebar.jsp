@@ -16,6 +16,7 @@
             <%-- ======================================================= --%>
             <c:if test="${sessionScope.usuarioLogado.tipo == 'CLIENTE'}">
                 <li><a href="#"><span>&#128176;</span> Meus Aluguéis</a></li>
+                <li><a href="/carteira"><span>&#128100;</span> Carteira</a></li>
             </c:if>
 
 
