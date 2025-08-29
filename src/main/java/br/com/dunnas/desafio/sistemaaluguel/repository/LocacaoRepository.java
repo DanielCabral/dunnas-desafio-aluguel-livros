@@ -25,4 +25,7 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Integer> {
 
     // Encontra todas as locações ativas de livros de um locador específico
     List<Locacao> findByLocadorAndStatus(Usuario locador, String status);
+    
+    @Query(value = "SELECT finalizar_devolucao(:locacaoId)", nativeQuery = true)
+    Integer finalizarDevolucao(@Param("locacaoId") Integer locacaoId);
 }

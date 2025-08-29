@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PathVariable;
+import br.com.dunnas.desafio.sistemaaluguel.model.CatalogoLocador;
 
 import br.com.dunnas.desafio.sistemaaluguel.service.LivroService;
-import br.com.dunnas.desafio.sistemaaluguel.service.LocacaoService;
 
 import java.util.List;
 import br.com.dunnas.desafio.sistemaaluguel.model.Livro;
@@ -20,24 +18,21 @@ public class LivroPageController {
     @Autowired
     private LivroService livroService;
     
-    @Autowired
-    private LocacaoService locacaoService;
-
-    @PostMapping("/alugar")
-    public String alugarLivro(@RequestParam("livroId") Integer livroId, RedirectAttributes redirectAttributes) {
-        
-        // SIMULAÇÃO: Hardcoding dos IDs de cliente e locador
-        Integer clienteId = 1;
-        Integer locadorId = 2;
-        
+    @GetMapping("/livro/{id}")
+    public String exibirDetalhesDoLivro(@PathVariable("id") Integer id, Model model) {
         try {
-            locacaoService.alugarLivro(clienteId, locadorId, livroId);
-            redirectAttributes.addFlashAttribute("mensagem", "Livro alugado com sucesso!");
+            Livro livro = livroService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+
+            List<CatalogoLocador> locadoresComEstoque = livroService.encontrarLocadoresComEstoque(id);
+
+            model.addAttribute("livro", livro);
+            model.addAttribute("locadoresDisponiveis", locadoresComEstoque);
+
+            return "detalhe-livro"; 
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("erro", "Erro ao alugar livro: " + e.getMessage());
+            return "redirect:/livros"; // Se o livro não existir, volta para a lista
         }
-        
-        return "redirect:/livros"; 
     }
 
     @GetMapping("/livros")

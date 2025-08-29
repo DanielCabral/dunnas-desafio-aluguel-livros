@@ -28,7 +28,6 @@ public class DashboardController {
 
         model.addAttribute("usuario", usuarioLogado);
 
-        // 3. Verifica o TIPO de utilizador e busca os dados específicos para ele
         if ("CLIENTE".equals(usuarioLogado.getTipo())) {
             // Se for um cliente, busca as suas locações ativas
             List<Locacao> locacoesAtivas = locacaoRepository.findByClienteAndStatus(usuarioLogado, "ATIVA");

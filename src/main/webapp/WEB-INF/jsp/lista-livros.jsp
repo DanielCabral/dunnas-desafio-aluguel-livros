@@ -29,22 +29,21 @@
                             <th>Ação</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <c:forEach items="${livros}" var="livro">
-                            <tr>
-                                <td><c:out value="${livro.titulo}" /></td>
-                                <td><c:out value="${livro.autor}" /></td>
-                                <td>R$ <c:out value="${livro.valorObra}" /></td>
-                                <td>
-                                    <%-- Formulário para alugar o livro --%>
-                                    <form action="/alugar" method="post">
-                                        <input type="hidden" name="livroId" value="${livro.id}" />
-                                        <button type="submit">Alugar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+                   <tbody>
+				    <c:forEach items="${livros}" var="livro">
+				        <tr>
+				            <%-- O título agora é um link para a página de detalhes --%>
+				            <td>
+				                <a href="/livro/${livro.id}"><c:out value="${livro.titulo}" /></a>
+				            </td>
+				            <td><c:out value="${livro.autor}" /></td>
+				            <td>R$ <c:out value="${livro.valorObra}" /></td>
+				            <td>
+				                <a href="/livro/${livro.id}"><button>Ver Detalhes</button></a>
+				            </td>
+				        </tr>
+				    </c:forEach>
+				</tbody>
                 </table>
             </div>
 
