@@ -22,12 +22,13 @@ public class Livro {
     @Column(name = "valor_obra", nullable = false)
     private BigDecimal valorObra;
 
-    @Column(name = "sinopse")
+    @Column(name = "sinopse") // Nome atualizado
     private String sinopse;
-
-    @Column(name = "conteudo_restrito")
+    
+    @Column(name = "conteudo_restrito") // Nome atualizado
     private String conteudo_restrito;
 
+    // GETTERS E SETTERS ATUALIZADOS
     public Integer getId() {
         return id;
     }
@@ -76,11 +77,11 @@ public class Livro {
         this.sinopse = sinopse;
     }
 
-    public String getConteudoRestrito() {
+    public String getConteudo_restrito() {
         return conteudo_restrito;
     }
 
-    public void setConteudoRestrito(String conteudo_restrito) {
+    public void setConteudo_restrito(String conteudo_restrito) {
         this.conteudo_restrito = conteudo_restrito;
     }
 }
