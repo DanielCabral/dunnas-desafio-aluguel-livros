@@ -16,38 +16,43 @@
         <jsp:include page="layout/header.jsp" />
 
         <main class="content">
-            <h1>Livros Disponíveis no Catálogo</h1>
-            <p>Esta é a lista completa de todas as obras disponíveis no sistema. Como cliente, você pode alugar qualquer um destes livros de um locador que o tenha em estoque.</p>
-
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Título</th>
-                            <th>Autor</th>
-                            <th>Valor da Obra</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                   <tbody>
-				    <c:forEach items="${livros}" var="livro">
-				        <tr>
-				            <%-- O título agora é um link para a página de detalhes --%>
-				            <td>
-				                <a href="/livro/${livro.id}"><c:out value="${livro.titulo}" /></a>
-				            </td>
-				            <td><c:out value="${livro.autor}" /></td>
-				            <td>R$ <c:out value="${livro.valorObra}" /></td>
-				            <td>
-				                <a href="/livro/${livro.id}"><button>Ver Detalhes</button></a>
-				            </td>
-				        </tr>
-				    </c:forEach>
-				</tbody>
-                </table>
-            </div>
-
-        </main>
+		    <h1>Livros Disponíveis no Catálogo</h1>
+		    <p>Esta é a lista completa de todas as obras disponíveis no sistema.</p>
+		    
+		    <div class="form-container" style="margin-bottom: 20px;">
+		        <input type="text" id="search-input" placeholder="Pesquisar por título..." 
+		               style="width:100%; padding:10px; font-size:16px; border-radius:4px; border: 1px solid #ccc;">
+		    </div>
+		    
+		    <div class="table-container">
+		        <table id="books-table"> <%-- Adicionado um ID à tabela --%>
+		            <thead>
+		                <tr>
+		                    <th>Título</th>
+		                    <th>Autor</th>
+		                    <th>Valor da Obra</th>
+		                    <th>Ação</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <c:forEach items="${livros}" var="livro">
+		                    <tr>
+							    <td>
+							        <%-- Aplica a classe específica para links de texto --%>
+							        <a href="/livro/${livro.id}" class="table-link"><c:out value="${livro.titulo}" /></a>
+							    </td>
+							    <td><c:out value="${livro.autor}" /></td>
+							    <td>R$ <c:out value="${livro.valorObra}" /></td>
+							    <td>
+							        <%-- A classe .btn-action já está a ser usada aqui --%>
+							        <a href="/livro/${livro.id}" class="btn-action">Ver Detalhes</a>
+							    </td>
+							</tr>
+		                </c:forEach>
+		            </tbody>
+		        </table>
+		    </div>
+		</main>
 
         <jsp:include page="layout/footer.jsp" />
     </div>

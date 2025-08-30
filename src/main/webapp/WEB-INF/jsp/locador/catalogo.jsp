@@ -2,33 +2,23 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <html>
 <head>
-    <title>Gerir Catálogo</title>
+    <title>Catálogo Global de Obras</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-
 <div class="page-container">
-    
     <jsp:include page="../layout/sidebar.jsp" />
-
     <div class="main-wrapper">
-        
         <jsp:include page="../layout/header.jsp" />
-
         <main class="content">
-            <h1>Gestão de Catálogo do Locador</h1>
-
-            <c:if test="${not empty mensagem}">
-                <div class="message">${mensagem}</div>
-            </c:if>
-            <c:if test="${not empty erro}">
-                <div class="error">${erro}</div>
-            </c:if>
+            <h1>Catálogo Global de Obras</h1>
+            <p>Abaixo estão todas as obras registadas no sistema. Se desejar registar uma obra completamente nova (que não está na lista), utilize o formulário.</p>
 
             <div class="container">
                 <div class="form-container">
-                    <h2>Adicionar Livro ao Catálogo</h2>
+                    <h2>Registar Nova Obra no Sistema</h2>
                     <form action="/locador/catalogo/adicionar" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         <div>
                             <label for="isbn">ISBN:</label>
                             <input type="text" id="isbn" name="isbn" required>
@@ -46,15 +36,15 @@
                             <input type="number" step="0.01" id="valorObra" name="valorObra" required>
                         </div>
                         <div>
-                            <label for="quantidade">Quantidade a Adicionar:</label>
+                            <label for="quantidade">Quantidade inicial no seu estoque:</label>
                             <input type="number" id="quantidade" name="quantidade" required min="1">
                         </div>
-                        <button type="submit">Adicionar ao Meu Catálogo</button>
+                        <button type="submit">Registar Obra e Adicionar ao meu Estoque</button>
                     </form>
                 </div>
 
                 <div class="table-container">
-                    <h2>Livros Globais no Sistema</h2>
+                    <h2>Obras Existentes</h2>
                     <table>
                         <thead>
                             <tr>
@@ -76,13 +66,9 @@
                 </div>
             </div>
         </main>
-        
         <jsp:include page="../layout/footer.jsp" />
     </div>
-
 </div>
-
 <script src="/js/main.js"></script>
-
 </body>
 </html>

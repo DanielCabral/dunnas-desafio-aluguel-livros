@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession; // Importe a HttpSession
+import br.com.dunnas.desafio.sistemaaluguel.model.CatalogoLocador;
 import br.com.dunnas.desafio.sistemaaluguel.model.Livro;
 import br.com.dunnas.desafio.sistemaaluguel.model.Usuario;
+import br.com.dunnas.desafio.sistemaaluguel.repository.CatalogoLocadorRepository;
 import br.com.dunnas.desafio.sistemaaluguel.service.CatalogoService;
 import br.com.dunnas.desafio.sistemaaluguel.service.LivroService;
 import java.math.BigDecimal;
@@ -23,6 +25,8 @@ public class CatalogoPageController {
 
     @Autowired
     private CatalogoService catalogoService;
+    @Autowired 
+    private CatalogoLocadorRepository catalogoLocadorRepository;
 
     @GetMapping("/locador/catalogo")
     public String exibirPaginaCatalogo(Model model) {
@@ -62,7 +66,28 @@ public class CatalogoPageController {
             redirectAttributes.addFlashAttribute("erro", "Erro ao processar a sua solicitação: " + e.getMessage());
         }
         
-        return "redirect:/locador/catalogo";
+        return "redirect:/locador/meu-catalogo";
+    }
+    
+ // Adicione este novo método à sua classe de controller
+
+    @GetMapping("/locador/meu-catalogo")
+    public String exibirMeuCatalogo(HttpSession session, Model model) {
+        Usuario locadorLogado = (Usuario) session.getAttribute("usuarioLogado");
+
+        if (locadorLogado == null || !"LOCADOR".equals(locadorLogado.getTipo())) {
+            return "redirect:/login";
+        }
+
+        // 1. Busca os livros que o locador JÁ TEM no seu catálogo
+        List<CatalogoLocador> meuCatalogo = catalogoLocadorRepository.findByLocadorOrderByLivroTituloAsc(locadorLogado);
+        model.addAttribute("meuCatalogo", meuCatalogo);
+
+        // 2. Busca TODOS os livros globais para que ele possa adicionar novos
+        List<Livro> todosOsLivros = livroService.listarTodos();
+        model.addAttribute("livrosGlobais", todosOsLivros);
+
+        return "locador/meu-catalogo"; // Nome do novo ficheiro JSP
     }
     
 }

@@ -25,6 +25,7 @@
             <%-- ======================================================= --%>
             <c:if test="${sessionScope.usuarioLogado.tipo == 'LOCADOR'}">
                 <li><a href="/locador/catalogo"><span>&#128210;</span> Gerir Meu Catálogo</a></li>
+                <li><a href="/locador/meu-catalogo"><span>&#128210;</span> Meu Catálogo</a></li>
             </c:if>
 
 

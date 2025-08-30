@@ -1,5 +1,7 @@
 package br.com.dunnas.desafio.sistemaaluguel.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,5 +51,44 @@ public class LoginController {
         session.invalidate(); // Invalida a sessão (remove todos os atributos)
         redirectAttributes.addFlashAttribute("mensagem", "Você foi desconectado com sucesso.");
         return "redirect:/login";
+    }
+    
+ // Método para EXIBIR a página de registo
+    @GetMapping("/registro")
+    public String exibirPaginaDeRegistro() {
+        return "registro"; // Nome do novo ficheiro registro.jsp
+    }
+
+    // Método para PROCESSAR o formulário de registo
+    @PostMapping("/registro")
+    public String processarRegistro(@RequestParam String nome,
+                                    @RequestParam String email,
+                                    @RequestParam String senha,
+                                    @RequestParam String tipo,
+                                    RedirectAttributes redirectAttributes) {
+
+        try {
+            Usuario novoUsuario = new Usuario();
+            novoUsuario.setNome(nome);
+            novoUsuario.setEmail(email);
+            novoUsuario.setSenha(senha);
+            novoUsuario.setTipo(tipo);
+            
+            // Define um saldo inicial padrão para novos utilizadores
+            if ("CLIENTE".equals(tipo)) {
+                novoUsuario.setSaldo(new BigDecimal("100.00")); // Saldo inicial para clientes
+            } else {
+                novoUsuario.setSaldo(BigDecimal.ZERO);
+            }
+
+            usuarioService.registrarUsuario(novoUsuario);
+
+            redirectAttributes.addFlashAttribute("mensagem", "Conta criada com sucesso! Por favor, faça o login.");
+            return "redirect:/login";
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/registro";
+        }
     }
 }

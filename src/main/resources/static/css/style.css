@@ -5,6 +5,137 @@
     box-sizing: border-box;
 }
 
+/* --- Estilos para Links de TEXTO Dentro de Tabelas --- */
+.table-link {
+    font-weight: 600;
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.table-link:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* --- Estilos para Botões de AÇÃO Dentro de Tabelas --- */
+td .btn-action { /* Seletor mais específico para botões */
+    background-color: #17a2b8;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+}
+
+td .btn-action:hover {
+    background-color: #138496;
+}
+
+/* Botão para ações "negativas" ou de finalização, como devolver */
+.btn-devolver {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.btn-devolver:hover {
+    background-color: #c82333;
+}
+
+/* Botão para ações "positivas" ou de confirmação, como alugar */
+.btn-alugar {
+    background-color: #28a745; /* Verde */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.btn-alugar:hover {
+    background-color: #218838;
+}
+/* --- Estilos para o Histórico de Transações --- */
+.table-container .valor-positivo {
+    color: #28a745; /* Verde */
+    font-weight: 600;
+}
+
+.table-container .valor-negativo {
+    color: #dc3545; /* Vermelho */
+    font-weight: 600;
+}
+
+/* --- Estilos Melhorados e Refinados para a Página de Login --- */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7f9;
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px; /* Cantos do container um pouco mais arredondados */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Sombra mais pronunciada */
+    width: 100%;
+    max-width: 420px; /* Um pouco mais largo */
+    text-align: center;
+}
+
+.login-container h1 {
+    margin-bottom: 25px;
+    color: #0056b3;
+}
+
+.login-container form div {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* AQUI ESTÁ A MELHORIA PRINCIPAL PARA AS CAIXAS DE TEXTO */
+.login-container form input[type="email"],
+.login-container form input[type="password"] {
+    width: 100%;
+    padding: 15px; /* Mais preenchimento interno para maior altura */
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Cantos bem arredondados */
+    box-sizing: border-box;
+    margin-top: 5px;
+    font-size: 16px; /* Tamanho da fonte maior */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave */
+}
+
+/* EFEITO AO CLICAR/FOCAR NA CAIXA DE TEXTO */
+.login-container form input[type="email"]:focus,
+.login-container form input[type="password"]:focus {
+    outline: none; /* Remove a borda padrão do navegador */
+    border-color: #80bdff; /* Cor da borda azul ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Sombra azul suave */
+}
+
+.create-account-link {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.create-account-link:hover {
+    text-decoration: underline;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #f4f7f9;
@@ -121,6 +252,7 @@ body {
         text-align: center;
     }
 }
+
 
 /* Importa os estilos antigos que você tinha */
 h1, h2 { color: #0056b3; }

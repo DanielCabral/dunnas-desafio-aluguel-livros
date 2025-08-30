@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import br.com.dunnas.desafio.sistemaaluguel.model.CatalogoLocador;
 import br.com.dunnas.desafio.sistemaaluguel.model.Livro;
+import br.com.dunnas.desafio.sistemaaluguel.model.Usuario;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,4 +24,7 @@ public interface CatalogoLocadorRepository extends JpaRepository<CatalogoLocador
         @Param("valor") BigDecimal valor,
         @Param("quantidade") Integer quantidade
     );
+    
+ // Adicione este novo método à interface
+    List<CatalogoLocador> findByLocadorOrderByLivroTituloAsc(Usuario locador);
 }

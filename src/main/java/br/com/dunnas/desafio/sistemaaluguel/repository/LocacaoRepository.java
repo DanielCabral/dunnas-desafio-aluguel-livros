@@ -28,4 +28,7 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Integer> {
     
     @Query(value = "SELECT finalizar_devolucao(:locacaoId)", nativeQuery = true)
     Integer finalizarDevolucao(@Param("locacaoId") Integer locacaoId);
+    
+ // Adicione este método à interface LocacaoRepository
+    List<Locacao> findByClienteOrderByDataLocacaoDesc(Usuario cliente);
 }

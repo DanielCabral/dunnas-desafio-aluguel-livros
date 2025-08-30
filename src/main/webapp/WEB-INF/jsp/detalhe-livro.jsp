@@ -44,7 +44,7 @@
 												    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 												    <input type="hidden" name="livroId" value="${livro.id}" />
 												    <input type="hidden" name="locadorId" value="${catalogo.locador.id}" />
-												    <button type="submit">Alugar deste Locador</button>
+												    <button type="submit" class="btn-alugar">Alugar deste Locador</button>
 												</form>
                                             </td>
                                         </tr>

@@ -8,16 +8,19 @@ AS $$
 DECLARE
     v_novo_saldo NUMERIC;
 BEGIN
-    -- Garante que o valor a ser adicionado é positivo
     IF p_valor_adicionar <= 0 THEN
         RAISE EXCEPTION 'O valor a ser adicionado deve ser positivo.';
     END IF;
 
-    -- Adiciona o valor ao saldo atual do utilizador e retorna o novo saldo
     UPDATE usuarios
     SET saldo = saldo + p_valor_adicionar
     WHERE id = p_usuario_id
     RETURNING saldo INTO v_novo_saldo;
+
+    -- INÍCIO DA ATUALIZAÇÃO: Registar no histórico de transações
+    INSERT INTO transacoes (usuario_id, tipo_transacao, valor)
+    VALUES (p_usuario_id, 'DEPOSITO', p_valor_adicionar);
+    -- FIM DA ATUALIZAÇÃO
 
     RETURN v_novo_saldo;
 END;

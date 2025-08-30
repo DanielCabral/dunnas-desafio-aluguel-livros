@@ -27,13 +27,17 @@ BEGIN
     END IF;
 
     -- 4. Executa as transações financeiras e de estoque
-    -- Debita do cliente
     UPDATE usuarios SET saldo = saldo - v_valor_restante WHERE id = v_locacao.cliente_id;
-    -- Credita para o locador
     UPDATE usuarios SET saldo = saldo + v_valor_restante WHERE id = v_locacao.locador_id;
-    -- Restitui o estoque
+
+    -- INÍCIO DA ATUALIZAÇÃO: Registar no histórico de transações
+    INSERT INTO transacoes (usuario_id, tipo_transacao, valor)
+    VALUES (v_locacao.cliente_id, 'PAGAMENTO_DEVOLUCAO', -v_valor_restante);
+    INSERT INTO transacoes (usuario_id, tipo_transacao, valor)
+    VALUES (v_locacao.locador_id, 'RECEBIMENTO_DEVOLUCAO', v_valor_restante);
+    -- FIM DA ATUALIZAÇÃO
+
     UPDATE catalogo_locadores SET estoque = estoque + 1 WHERE livro_id = v_locacao.livro_id AND locador_id = v_locacao.locador_id;
-    -- Finaliza a locação
     UPDATE locacoes 
     SET status = 'FINALIZADA', data_devolucao = CURRENT_TIMESTAMP
     WHERE id = p_locacao_id;
