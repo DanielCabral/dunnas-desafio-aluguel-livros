@@ -84,4 +84,31 @@ public class UsuarioService {
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
+    
+    /**
+     * Atualiza o perfil de um utilizador existente (nome e/ou senha).
+     *
+     * @param id O ID do utilizador a ser atualizado.
+     * @param novoNome O novo nome para o utilizador.
+     * @param novaSenha A nova senha (pode ser vazia ou nula se não for para alterar).
+     * @return O objeto Usuario atualizado.
+     */
+    @Transactional
+    public Usuario atualizarPerfil(Integer id, String novoNome, String novaSenha) {
+        Usuario usuario = usuarioRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Utilizador não encontrado."));
+
+        // Atualiza o nome
+        if (novoNome != null && !novoNome.isEmpty()) {
+            usuario.setNome(novoNome);
+        }
+
+        // Atualiza a senha APENAS se uma nova senha for fornecida
+        if (novaSenha != null && !novaSenha.isEmpty()) {
+            // AVISO: Guardando em texto puro, como combinado temporariamente.
+            usuario.setSenha(novaSenha);
+        }
+
+        return usuarioRepository.save(usuario);
+    }
 }

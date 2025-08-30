@@ -104,24 +104,31 @@ td .btn-action:hover {
 }
 
 /* AQUI ESTÁ A MELHORIA PRINCIPAL PARA AS CAIXAS DE TEXTO */
+/* --- Estilos Unificados para Caixas de Texto em Formulários --- */
 .login-container form input[type="email"],
-.login-container form input[type="password"] {
+.login-container form input[type="password"],
+.form-container form input[type="text"],
+.form-container form input[type="email"],
+.form-container form input[type="password"] {
     width: 100%;
-    padding: 15px; /* Mais preenchimento interno para maior altura */
+    padding: 15px;
     border: 1px solid #ccc;
-    border-radius: 8px; /* Cantos bem arredondados */
+    border-radius: 8px;
     box-sizing: border-box;
     margin-top: 5px;
-    font-size: 16px; /* Tamanho da fonte maior */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Transição suave */
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* EFEITO AO CLICAR/FOCAR NA CAIXA DE TEXTO */
+/* EFEITO AO CLICAR/FOCAR nas caixas de texto */
 .login-container form input[type="email"]:focus,
-.login-container form input[type="password"]:focus {
-    outline: none; /* Remove a borda padrão do navegador */
-    border-color: #80bdff; /* Cor da borda azul ao focar */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Sombra azul suave */
+.login-container form input[type="password"]:focus,
+.form-container form input[type="text"]:focus,
+.form-container form input[type="email"]:focus,
+.form-container form input[type="password"]:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
 }
 
 .create-account-link {

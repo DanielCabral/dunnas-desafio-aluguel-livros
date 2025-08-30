@@ -8,15 +8,15 @@
             <%-- =========== ITENS VISÍVEIS PARA TODOS LOGADOS ========= --%>
             <%-- ======================================================= --%>
             <li><a href="/dashboard"><span>&#127968;</span> Dashboard</a></li>
-            <li><a href="/livros"><span>&#128218;</span> Catálogo Global</a></li>
+            <li><a href="/livros"><span>&#128218;</span> Catálogo de Livros</a></li>
 
 
             <%-- ======================================================= --%>
             <%-- =========== ITENS EXCLUSIVOS PARA CLIENTES ============ --%>
             <%-- ======================================================= --%>
             <c:if test="${sessionScope.usuarioLogado.tipo == 'CLIENTE'}">
-                <li><a href="/meus-alugueis"><span>&#128176;</span> Meus Aluguéis</a></li>
-                <li><a href="/carteira"><span>&#128100;</span> Carteira</a></li>
+                <li><a href="/meus-alugueis"><span>&#128366;</span> Meus Aluguéis</a></li>
+                <li><a href="/carteira"><span>&#128176;</span> Carteira</a></li>
             </c:if>
 
 
@@ -32,7 +32,7 @@
             <%-- ======================================================= --%>
             <%-- =========== ITENS FINAIS PARA TODOS LOGADOS =========== --%>
             <%-- ======================================================= --%>
-            <li><a href="#"><span>&#128100;</span> Minha Conta</a></li>
+            <li><a href="/minha-conta"><span>&#128100;</span> Minha Conta</a></li>
             <li><a href="/logout"><span>&#128682;</span> Sair</a></li>
         </ul>
     </nav>
